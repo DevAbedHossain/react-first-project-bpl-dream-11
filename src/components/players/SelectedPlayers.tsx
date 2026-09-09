@@ -8,10 +8,9 @@ export interface SelectedPlayersProps {
     coin: number
     setCoin: Dispatch<SetStateAction<number>>
     searchPlayer: string
-    setSearchPlayer: Dispatch<SetStateAction<string>>
 }
 
-export default function SelectedPlayers({ selectedPlayers, setSelectedPlayers, coin, setCoin,searchPlayer, setSearchPlayer }: SelectedPlayersProps) {
+export default function SelectedPlayers({ selectedPlayers, setSelectedPlayers, coin, setCoin,searchPlayer }: SelectedPlayersProps) {
 
     if (selectedPlayers.length === 0) { 
         return (

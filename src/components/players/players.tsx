@@ -21,10 +21,12 @@ export default function Players({ playerDataPromise, coin, setCoin }: PlayersPro
     const [searchPlayer, setSearchPlayer] = useState<string>("")
     const [countryPlayer, setCountryPlayer] = useState<string>("")
 
-    const handleSearchPlayer = (e) => {
+    const handleSearchPlayer = (e: ChangeEvent<HTMLInputElement>) => {
         setSearchPlayer(e.target.value)
+    }
 
-        setCountryPlayer(e.target.value)
+    const handleCountryPlayer = (k: ChangeEvent<HTMLSelectElement>) => {
+        setCountryPlayer(k.target.value)
     }
 
     const handelButtonType = (type: "available" | "selected") => {
@@ -39,8 +41,10 @@ export default function Players({ playerDataPromise, coin, setCoin }: PlayersPro
                 <div className="flex justify-between items-center">
                     <h2 className="text-2xl font-medium">{buttonType === "available" ? "Available Players" : "Selected Players"}</h2>
                     <div className="flex gap-2 items-center">
+
                         <input onChange={handleSearchPlayer} type="text" placeholder="Search Players..." className="input focus:border-none active:border-none w-2xs outline-0" />
-                        <select onChange={handleSearchPlayer} name="country" id="country" className="select focus:border-none active:border-none w-2xs outline-0">
+
+                        <select onChange={handleCountryPlayer} name="country" id="country" className="select focus:border-none active:border-none w-2xs outline-0">
                             <option value="">All Countries</option>
                             {countriesList.map((country, index) => (
                                 <option key={index} value={country}>
@@ -49,6 +53,7 @@ export default function Players({ playerDataPromise, coin, setCoin }: PlayersPro
                             ))}
 
                         </select>
+                        
                     </div>
                     <div>
                         <button onClick={() => handelButtonType("available")} className={`btn rounded-r-none ${buttonType === "available" ? "btn-success" : ""}`}>Available</button>
@@ -56,7 +61,7 @@ export default function Players({ playerDataPromise, coin, setCoin }: PlayersPro
                     </div>
                 </div>
 
-                {buttonType === "available" ? <AvailablePlayers players={players} coin={coin} setCoin={setCoin} selectedPlayers={mySelectedPlayers} setSelectedPlayers={setMySelectedPlayers} searchPlayer={searchPlayer} setSearchPlayer={setSearchPlayer} countryPlayer={ countryPlayer}></AvailablePlayers> : <SelectedPlayers selectedPlayers={mySelectedPlayers} setSelectedPlayers={setMySelectedPlayers} coin={coin} setCoin={setCoin} searchPlayer={searchPlayer} setSearchPlayer={setSearchPlayer}></SelectedPlayers>}
+                {buttonType === "available" ? <AvailablePlayers players={players} coin={coin} setCoin={setCoin} selectedPlayers={mySelectedPlayers} setSelectedPlayers={setMySelectedPlayers} searchPlayer={searchPlayer} countryPlayer={countryPlayer} setCountryPlayer={ setCountryPlayer}></AvailablePlayers> : <SelectedPlayers selectedPlayers={mySelectedPlayers} setSelectedPlayers={setMySelectedPlayers} coin={coin} setCoin={setCoin} searchPlayer={searchPlayer}></SelectedPlayers>}
 
 
             </div>
