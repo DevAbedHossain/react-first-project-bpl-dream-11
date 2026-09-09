@@ -8,15 +8,24 @@ export interface AvailablePlayersProps {
     setCoin: Dispatch<SetStateAction<number>>
     selectedPlayers: PlayerType[]
     setSelectedPlayers: Dispatch<SetStateAction<PlayerType[]>>
+    searchPlayer: string
+    setSearchPlayer: Dispatch<SetStateAction<string>>
 }
 
-export default function AvailablePlayers({ players, coin, setCoin, selectedPlayers, setSelectedPlayers }: AvailablePlayersProps) {
+export default function AvailablePlayers({ players, coin, setCoin, selectedPlayers, setSelectedPlayers, searchPlayer, setSearchPlayer }: AvailablePlayersProps) {
     
     return (
-        <div className="grid grid-cols-3 gap-4">
+        <>
+            { searchPlayer.length > 0 ? <div className="grid grid-cols-3 gap-4">
+            { 
+                players.filter(playerName => playerName.playerName.toLowerCase().includes(searchPlayer.toLowerCase())).map((player, index) => <PlayerCart key={ index} player={player} coin={coin} setCoin={setCoin} selectedPlayers={selectedPlayers} setSelectedPlayers={ setSelectedPlayers}></PlayerCart>)
+            }
+        </div> : <div className="grid grid-cols-3 gap-4">
             { 
                 players.map((player, index) => <PlayerCart key={ index} player={player} coin={coin} setCoin={setCoin} selectedPlayers={selectedPlayers} setSelectedPlayers={ setSelectedPlayers}></PlayerCart>)
             }
-        </div>
+        </div> }
+            
+        </>
     )
 }

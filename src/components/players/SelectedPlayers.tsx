@@ -7,9 +7,11 @@ export interface SelectedPlayersProps {
     setSelectedPlayers: Dispatch<SetStateAction<PlayerType[]>>
     coin: number
     setCoin: Dispatch<SetStateAction<number>>
+    searchPlayer: string
+    setSearchPlayer: Dispatch<SetStateAction<string>>
 }
 
-export default function SelectedPlayers({ selectedPlayers, setSelectedPlayers, coin, setCoin }: SelectedPlayersProps) {
+export default function SelectedPlayers({ selectedPlayers, setSelectedPlayers, coin, setCoin,searchPlayer, setSearchPlayer }: SelectedPlayersProps) {
 
     if (selectedPlayers.length === 0) { 
         return (
@@ -21,11 +23,15 @@ export default function SelectedPlayers({ selectedPlayers, setSelectedPlayers, c
 
     return (
         <>
-            <div>
+            { searchPlayer.length > 0 ? <div>
+                {
+                    selectedPlayers.filter(playerName => ((playerName.playerName.toLowerCase().includes(searchPlayer.toLowerCase())))).map((player, index) => <SelectedPlayerCart key={index} player={ player} selectedPlayers={selectedPlayers} setSelectedPlayers={setSelectedPlayers} coin={coin} setCoin={ setCoin}></SelectedPlayerCart>)
+                }
+            </div> : <div>
                 {
                     selectedPlayers.map((player, index) => <SelectedPlayerCart key={index} player={ player} selectedPlayers={selectedPlayers} setSelectedPlayers={setSelectedPlayers} coin={coin} setCoin={ setCoin}></SelectedPlayerCart>)
                 }
-            </div>
+            </div>}
         </>
     )
 }
